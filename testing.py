@@ -9,30 +9,38 @@ primary_keys = {
 }
 """
 
+# TODO JAYDEN:::: ADD TYPES TO ALL INPUTS SO THAT WE CAN GENERATE WITHOUT IF STATEMENTS
+
 import random, string
 
 data_inputs = {
     "primary_key":{
+        "type":"int",
         "valid":[],
         "invalid":[]
     },
     "movie_name":{
+        "type":"str",
         "valid":[],
         "invalid":[]
     },
     "year_of_release":{
+        "type":"int",
         "valid":[],
         "invalid":[]
     },
     "rating":{
+        "type":"str",
         "valid":[],
         "invalid":[]
     },
     "runtime":{
+        "type":"int",
         "valid":[],
         "invalid":[]
     },
     "genre":{
+        "type":"str",
         "valid":[],
         "invalid":[]
     }
@@ -73,16 +81,30 @@ def generate_invalid(type, max_length=50, max_value=10000, min_value=0):
         else:
             return text
 
-
-print(generate_invalid("int"))
-
 # Generate valid & invalids
 for input, values in data_inputs.items():
-    if(input == "primary_key"):
+    if(values["type"] == "int"):
         # Valid inputs
         for i in range(0, 30):
-            pass
+            t = generate_valid("int")
+            values["valid"].append(t)
+        # Invalid inputs
+        for i in range(0, 30):
+            t = generate_invalid("int")
+            values["invalid"].append(t)
+    else:
+        # String
+        # Valid inputs
+        for i in range(0, 30):
+            t = generate_valid("str")
+            values["valid"].append(t)
+        # Invalid inputs
+        for i in range(0, 30):
+            t = generate_invalid("str")
+            values["invalid"].append(t)
+            
 
+print(data_inputs)
 
 
     
