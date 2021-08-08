@@ -9,8 +9,6 @@ primary_keys = {
 }
 """
 
-# TODO JAYDEN:::: ADD TYPES TO ALL INPUTS SO THAT WE CAN GENERATE WITHOUT IF STATEMENTS
-
 import random, string
 
 data_inputs = {
@@ -102,7 +100,6 @@ for input, values in data_inputs.items():
         for i in range(0, 30):
             t = generate_invalid("str")
             values["invalid"].append(t)
-            
 
 print(data_inputs)
 
