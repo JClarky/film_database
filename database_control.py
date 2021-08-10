@@ -14,7 +14,13 @@ def dict_factory(cursor, row):
 def whole_db():
     global cursor
     cursor.row_factory = dict_factory
-    return(cursor.execute('SELECT * FROM FILMS'))
+    db = {}
+    i = 0
+    for row in cursor.execute('SELECT * FROM FILMS'):
+        db[i] = row
+        i = i + 1
+
+    return(db)
 
 # Return specific film
 def film(primary_key):

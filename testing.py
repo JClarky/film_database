@@ -107,12 +107,13 @@ def database_control_test():
     # Check entire database
 
     returned = dbc.whole_db()
+    print(type(returned))
     # If returned is empty
     if returned == "":
         return(False, "Empty database")
-    elif returned.type != "dict":
+    elif type(returned) != type({}):
         return(False, "Database not returned as dictionary")
-
+    
     # Check single film
     preselected = returned[0]
     print(preselected)
