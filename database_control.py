@@ -17,7 +17,7 @@ def whole_db():
     return(cursor.execute('SELECT * FROM FILMS'))
 
 # Return specific film
-def film():
+def film(primary_key):
     global cursor
     selected_film = cursor.execute("SELECT * FROM FILMS WHERE PRIMARY_KEY="+primary_key)  
     return(selected_film)
@@ -26,7 +26,7 @@ def film():
 def insert(values):
     global cursor, conn
     values = tuple(values)
-    cursor.execute("INSERT INTO FILMS VALUES (?,?,?,?)", values)
+    cursor.execute("INSERT INTO FILMS VALUES (?,?,?,?,?,?)", values)
     conn.commit()
 
 # Amend film using primary key, field to amend and fields new value
@@ -55,10 +55,10 @@ def create_table():
 #create_table()
 
 # Commit table
-conn.commit()
+#conn.commit()
 
 # Close database connection
-conn.close()
+#conn.close()
 
 
 

@@ -10,6 +10,7 @@ primary_keys = {
 """
 
 import random, string
+import database_control as dbc
 
 data_inputs = {
     "primary_key":{
@@ -79,29 +80,50 @@ def generate_invalid(type, max_length=50, max_value=10000, min_value=0):
         else:
             return text
 
-# Generate valid & invalids
-for input, values in data_inputs.items():
-    if(values["type"] == "int"):
-        # Valid inputs
-        for i in range(0, 30):
-            t = generate_valid("int")
-            values["valid"].append(t)
-        # Invalid inputs
-        for i in range(0, 30):
-            t = generate_invalid("int")
-            values["invalid"].append(t)
-    else:
-        # String
-        # Valid inputs
-        for i in range(0, 30):
-            t = generate_valid("str")
-            values["valid"].append(t)
-        # Invalid inputs
-        for i in range(0, 30):
-            t = generate_invalid("str")
-            values["invalid"].append(t)
+def generate_values():
+    # Generate valid & invalids
+    for input, values in data_inputs.items():
+        if(values["type"] == "int"):
+            # Valid inputs
+            for i in range(0, 30):
+                t = generate_valid("int")
+                values["valid"].append(t)
+            # Invalid inputs
+            for i in range(0, 30):
+                t = generate_invalid("int")
+                values["invalid"].append(t)
+        else:
+            # String
+            # Valid inputs
+            for i in range(0, 30):
+                t = generate_valid("str")
+                values["valid"].append(t)
+            # Invalid inputs
+            for i in range(0, 30):
+                t = generate_invalid("str")
+                values["invalid"].append(t)
 
-print(data_inputs)
+def database_control_test():
+    # Check entire database
 
+    returned = dbc.whole_db()
+    # If returned is empty
+    if returned == "":
+        return(False, "Empty database")
+    elif returned.type != "dict":
+        return(False, "Database not returned as dictionary")
 
+    # Check single film
+    preselected = returned[0]
+    print(preselected)
+
+    return(True, "Passed all tests")
+
+while True:
+    ans = input("Test which module: database control (d), error checking (e) or both (b)")
+
+    # Test database_control module
+    if(ans == 'd'):
+        flag, reason = database_control_test()
+        print(flag, reason)
     
