@@ -25,7 +25,9 @@ def whole_db():
 # Return specific film
 def film(primary_key):
     global cursor
-    selected_film = cursor.execute("SELECT * FROM FILMS WHERE PRIMARY_KEY="+str(primary_key))  
+    selected_film = cursor.execute("SELECT * FROM FILMS WHERE PRIMARY_KEY="+str(primary_key))
+    for row in selected_film:
+        selected_film = row
     return(selected_film)
 
 # Parse table a tuple of values (name, year of release, rating, runtime, genre)

@@ -122,7 +122,7 @@ def database_control_test():
     if returned == "":
         return(False, "Empty film returned")
     elif type(returned) != type({}):
-        return(False, "Film returned not in dictionary format")
+        return(False, "Film returned not in dictionary format, returned in "+str(type(returned)))
     elif preselected != returned:
         return(False, "Film returned not the same as the requested film")
 
