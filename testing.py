@@ -105,26 +105,29 @@ def generate_values():
 
 def database_control_test():
     # Check entire database
+    try:
 
-    returned = dbc.whole_db()
+        returned = dbc.whole_db()
 
-    # If returned is empty
-    if returned == "":
-        return(False, "Empty database")
-    elif type(returned) != type({}):
-        return(False, "Database not returned as dictionary")
-    
-    # Check single film'
+        # If returned is empty
+        if returned == "":
+            return(False, "Empty database")
+        elif type(returned) != type({}):
+            return(False, "Database not returned as dictionary, returned in "+str(type(returned)))
+        
+        # Check single film'
 
-    preselected = returned[0]
-    returned = dbc.film(1) # Request first film
-    # Compare the returned film, and the preselected film
-    if returned == "":
-        return(False, "Empty film returned")
-    elif type(returned) != type({}):
-        return(False, "Film returned not in dictionary format, returned in "+str(type(returned)))
-    elif preselected != returned:
-        return(False, "Film returned not the same as the requested film")
+        preselected = returned[0]
+        returned = dbc.film(1) # Request first film
+        # Compare the returned film, and the preselected film
+        if returned == "":
+            return(False, "Empty film returned")
+        elif type(returned) != type({}):
+            return(False, "Film returned not in dictionary format, returned in "+str(type(returned)))
+        elif preselected != returned:
+            return(False, "Film returned not the same as the requested film")
+    except:
+        return(False, "Database control module error")
 
     return(True, "Passed all tests")
 
