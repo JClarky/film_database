@@ -107,16 +107,24 @@ def database_control_test():
     # Check entire database
 
     returned = dbc.whole_db()
-    print(type(returned))
+
     # If returned is empty
     if returned == "":
         return(False, "Empty database")
     elif type(returned) != type({}):
         return(False, "Database not returned as dictionary")
     
-    # Check single film
+    # Check single film'
+
     preselected = returned[0]
-    print(preselected)
+    returned = dbc.film(1) # Request first film
+    # Compare the returned film, and the preselected film
+    if returned == "":
+        return(False, "Empty film returned")
+    elif type(returned) != type({}):
+        return(False, "Film returned not in dictionary format")
+    elif preselected != returned:
+        return(False, "Film returned not the same as the requested film")
 
     return(True, "Passed all tests")
 
@@ -126,5 +134,5 @@ while True:
     # Test database_control module
     if(ans == 'd'):
         flag, reason = database_control_test()
-        print(flag, reason)
+        print(reason)
     

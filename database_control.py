@@ -25,7 +25,7 @@ def whole_db():
 # Return specific film
 def film(primary_key):
     global cursor
-    selected_film = cursor.execute("SELECT * FROM FILMS WHERE PRIMARY_KEY="+primary_key)  
+    selected_film = cursor.execute("SELECT * FROM FILMS WHERE PRIMARY_KEY="+str(primary_key))  
     return(selected_film)
 
 # Parse table a tuple of values (name, year of release, rating, runtime, genre)
@@ -38,14 +38,14 @@ def insert(values):
 # Amend film using primary key, field to amend and fields new value
 def amend(primary_key, field, value):
     global cursor, conn
-    selected_film = cursor.execute("SELECT * FROM FILMS WHERE PRIMARY_KEY="+primary_key)  
-    cursor.execute("UPDATE FILMS SET " + field + "=" + value + " WHERE PRIMARY_KEY = " + primary_key)
+    selected_film = cursor.execute("SELECT * FROM FILMS WHERE PRIMARY_KEY="+str(primary_key))  
+    cursor.execute("UPDATE FILMS SET " + field + "=" + value + " WHERE PRIMARY_KEY = " + str(primary_key))
     conn.commit()
 
 # Delete film using primary key
 def delete(primary_key):
     global cursor, conn
-    cursor.execute("DELETE FROM FILMS WHERE PRIMARY_KEY = " + primary_key)
+    cursor.execute("DELETE FROM FILMS WHERE PRIMARY_KEY = " + str(primary_key))
     conn.commit()
 
 # Create table (only used once)
