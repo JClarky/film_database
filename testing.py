@@ -104,11 +104,10 @@ def generate_values():
                 values["invalid"].append(t)
 
 def database_control_test():
-    # Check entire database
     try:
+        # Check entire database
 
         returned = dbc.whole_db()
-
         # If returned is empty
         if returned == "":
             return(False, "Empty database")
@@ -126,13 +125,50 @@ def database_control_test():
             return(False, "Film returned not in dictionary format, returned in "+str(type(returned)))
         elif preselected != returned:
             return(False, "Film returned not the same as the requested film")
-    except:
-        return(False, "Database control module error")
+
+        # Add movie
+        idx = random.randint(0,30)
+        pk = len(dbc.whole_db())
+        name = data_inputs["primary_key"]["valid"][idx]
+        yor = data_inputs["year_of_release"]["valid"][idx]
+        rating = data_inputs["rating"]["valid"][idx]
+        runtime = data_inputs["runtime"]["valid"][idx]
+        genre = data_inputs["genre"]["valid"][idx]
+        inserted_dict = {'PRIMARY_KEY': pk, 'MOVIE_NAME': name, 'YEAR_OF_RELEASE': yor, 'RATING': rating, 'RUNTIME': runtime, 'GENRE': genre}
+
+        dbc.insert((pk,  name, yor, rating, runtime, genre))
+        inserted = dbc.film(pk)
+        if inserted == "":
+            return(False, "Empty inserted film returned")
+        elif inserted != inserted_dict:
+            return(False, "Film returned not matching inserted film")
+
+        # Amend movie
+        idx = random.randint(0,30)
+        name = data_inputs["primary_key"]["valid"][idx]
+        yor = data_inputs["year_of_release"]["valid"][idx]
+        rating = data_inputs["rating"]["valid"][idx]
+        runtime = data_inputs["runtime"]["valid"][idx]
+        genre = data_inputs["genre"]["valid"][idx]
+        new_random = [{'name':"PRIMARY_KEY", 'value': pk}, {'name':"MOVIE_NAME", 'value': name}, {'name':"YEAR_OF_RELEASE", 'value': yor}, {'name':"RATING", 'value': rating}, {'name':"RUNTIME", 'value': runtime}, {'name':"GENRE", 'value': genre}]
+
+        selected_to_change = random.randint(1,5)
+
+        dbc.amend(pk,new_random[selected_to_change]["field"],new_random[selected_to_change]["value"])
+        amended = dbc.film(pk)
+        if amended == "":
+            return(False, "Empty amended film returned")
+        elif amended == inserted:
+            return(False, "Film returned not matching amended film")
+
+    except Exception as e:
+        return(False, "Database control module error, "+str(e))
 
     return(True, "Passed all tests")
 
 while True:
     ans = input("Test which module: database control (d), error checking (e) or both (b)")
+    generate_values()
 
     # Test database_control module
     if(ans == 'd'):

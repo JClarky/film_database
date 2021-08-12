@@ -30,7 +30,7 @@ def film(primary_key):
         selected_film = row
     return(selected_film)
 
-# Parse table a tuple of values (name, year of release, rating, runtime, genre)
+# Parse table a tuple of values (primary key, name, year of release, rating, runtime, genre)
 def insert(values):
     global cursor, conn
     values = tuple(values)
