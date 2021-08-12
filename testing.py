@@ -130,7 +130,7 @@ def database_control_test():
             return(False, str("Film returned not the same as the requested film preselected: "+str(preselected)+" returned: "+str(returned)))
 
         # Add movie
-        idx = random.randint(0,30)
+        idx = random.randint(0,29)
         pk = len(dbc.whole_db())+1
         last_added_pk = pk
         name = data_inputs["primary_key"]["valid"][idx]
@@ -138,13 +138,14 @@ def database_control_test():
         rating = data_inputs["rating"]["valid"][idx]
         runtime = data_inputs["runtime"]["valid"][idx]
         genre = data_inputs["genre"]["valid"][idx]
-        inserted_dict = {'PRIMARY_KEY': pk, 'MOVIE_NAME': name, 'YEAR_OF_RELEASE': yor, 'RATING': rating, 'RUNTIME': runtime, 'GENRE': genre}
+        inserted_dict = {'PRIMARY_KEY': pk, 'MOVIE_NAME': str(name), 'YEAR_OF_RELEASE': yor, 'RATING': rating, 'RUNTIME': runtime, 'GENRE': genre}
 
         dbc.insert((pk,  name, yor, rating, runtime, genre))
         inserted = dbc.film(pk)
+        print(inserted, inserted_dict)
         if inserted == "":
             return(False, "Empty inserted film returned")
-        elif inserted != inserted_dict:
+        elif str(inserted) != str(inserted_dict):
             return(False, "Film returned not matching inserted film")
 
         # Amend movie
@@ -158,12 +159,14 @@ def database_control_test():
 
         selected_to_change = random.randint(1,5)
 
-        dbc.amend(pk,new_random[selected_to_change]["field"],new_random[selected_to_change]["value"])
+        dbc.amend(pk,new_random[selected_to_change]["name"],new_random[selected_to_change]["value"])
         amended = dbc.film(pk)
         if amended == "":
             return(False, "Empty amended film returned")
         elif amended == inserted:
             return(False, "Film returned not matching amended film")
+
+        dbc.delete(pk)
 
     except Exception as e:       
         return(False, "Database control module error, "+str(e))

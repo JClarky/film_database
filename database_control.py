@@ -42,7 +42,11 @@ def insert(values):
 def amend(primary_key, field, value):
     global cursor, conn
     selected_film = cursor.execute("SELECT * FROM FILMS WHERE PRIMARY_KEY="+str(primary_key))  
-    cursor.execute("UPDATE FILMS SET " + field + "=" + value + " WHERE PRIMARY_KEY = " + str(primary_key))
+    print(field,value)
+    if(type(value) == type(1)):
+        cursor.execute("UPDATE FILMS SET " + field + "=" + str(value) + " WHERE PRIMARY_KEY = " + str(primary_key))
+    else:
+        cursor.execute("UPDATE FILMS SET " + field + "='" + value + "' WHERE PRIMARY_KEY = " + str(primary_key))
     conn.commit()
 
 # Delete film using primary key
