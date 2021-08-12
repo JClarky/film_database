@@ -28,7 +28,6 @@ def film(primary_key):
     selected_film = cursor.execute("SELECT * FROM FILMS WHERE PRIMARY_KEY="+str(primary_key))
     for row in selected_film:
         selected_film = row
-    print(selected_film)
     return(selected_film)
 
 # Parse table a tuple of values (primary key, name, year of release, rating, runtime, genre)
@@ -42,7 +41,6 @@ def insert(values):
 def amend(primary_key, field, value):
     global cursor, conn
     selected_film = cursor.execute("SELECT * FROM FILMS WHERE PRIMARY_KEY="+str(primary_key))  
-    print(field,value)
     if(type(value) == type(1)):
         cursor.execute("UPDATE FILMS SET " + field + "=" + str(value) + " WHERE PRIMARY_KEY = " + str(primary_key))
     else:

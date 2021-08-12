@@ -142,7 +142,6 @@ def database_control_test():
 
         dbc.insert((pk,  name, yor, rating, runtime, genre))
         inserted = dbc.film(pk)
-        print(inserted, inserted_dict)
         if inserted == "":
             return(False, "Empty inserted film returned")
         elif str(inserted) != str(inserted_dict):
@@ -166,7 +165,10 @@ def database_control_test():
         elif amended == inserted:
             return(False, "Film returned not matching amended film")
 
+        # Delete movie
         dbc.delete(pk)
+        if(type(dbc.film(pk)) == type({})):
+            return(False, "Film has not been succesfully deleted")
 
     except Exception as e:       
         return(False, "Database control module error, "+str(e))
