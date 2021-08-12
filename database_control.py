@@ -68,3 +68,6 @@ def create_table():
 
 # Close database connection
 #conn.close()
+
+#insert((1,'Ghostbusters',2016,'PG',116,'Comedy'))
+

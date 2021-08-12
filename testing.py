@@ -12,6 +12,8 @@ primary_keys = {
 import random, string
 import database_control as dbc
 
+last_added_pk = None
+
 data_inputs = {
     "primary_key":{
         "type":"int",
@@ -104,6 +106,7 @@ def generate_values():
                 values["invalid"].append(t)
 
 def database_control_test():
+    global last_added_pk
     try:
         # Check entire database
 
@@ -128,7 +131,8 @@ def database_control_test():
 
         # Add movie
         idx = random.randint(0,30)
-        pk = len(dbc.whole_db())
+        pk = len(dbc.whole_db())+1
+        last_added_pk = pk
         name = data_inputs["primary_key"]["valid"][idx]
         yor = data_inputs["year_of_release"]["valid"][idx]
         rating = data_inputs["rating"]["valid"][idx]
@@ -161,7 +165,7 @@ def database_control_test():
         elif amended == inserted:
             return(False, "Film returned not matching amended film")
 
-    except Exception as e:
+    except Exception as e:       
         return(False, "Database control module error, "+str(e))
 
     return(True, "Passed all tests")
@@ -173,5 +177,9 @@ while True:
     # Test database_control module
     if(ans == 'd'):
         flag, reason = database_control_test()
+        if(False == flag):
+            if(last_added_pk):
+                dbc.delete(last_added_pk)
+                last_added_pk = None
         print(reason)
     
