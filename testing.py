@@ -117,14 +117,14 @@ def database_control_test():
         # Check single film'
 
         preselected = returned[0]
-        returned = dbc.film(1) # Request first film
+        returned = dbc.film(preselected["PRIMARY_KEY"]) # Request first film
         # Compare the returned film, and the preselected film
         if returned == "":
             return(False, "Empty film returned")
         elif type(returned) != type({}):
-            return(False, "Film returned not in dictionary format, returned in "+str(type(returned)))
+            return(False, "Film returned not in dictionary format, returned in "+str(type(returned))+" returned: "+str(returned))
         elif preselected != returned:
-            return(False, "Film returned not the same as the requested film")
+            return(False, str("Film returned not the same as the requested film preselected: "+str(preselected)+" returned: "+str(returned)))
 
         # Add movie
         idx = random.randint(0,30)
