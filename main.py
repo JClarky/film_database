@@ -10,6 +10,14 @@ def create_combo(combo_name):
     update_men()"""
 
 @eel.expose
+def delete_movie(pk):
+    pk = int(pk)
+
+    returned, flag, reason = ec.delete(pk)
+
+    eel.response(flag, reason)
+
+@eel.expose
 def update_db():
     eel.update_films(dbc.whole_db())
 

@@ -33,6 +33,7 @@ h1
     margin: 50px;
     display: inline-block;
     position: relative;
+    width: 1309.44px;
 }
 
 .database-container h2 
@@ -78,6 +79,7 @@ h1
     font-size: 18px;
     font-weight: bold;
     padding: 8px 15px;
+    cursor: pointer;
 }
 
 
