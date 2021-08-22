@@ -115,14 +115,52 @@ def insert(pk, name, yor, rating, runtime, genre):
         if(not flag):
             return(None, False, "Insert film falure, reason: "+reason)
 
-    insert((pk, name, yor, rating, runtime, genre))
+    dbc.insert((pk, name, yor, rating, runtime, genre))
+
     # Success
     return(None, True, None)
     
+# Amend film into database
+def amend(primary_key, field, value):
+    # Check if primary key already exists
+    returned, flag, message = film(primary_key)
+    if(flag == True):
+        return(None, False, "Amend failure as primary key does not exist")
 
-def amend():
-    # Amend film into database
-    pass
+    if(field == "PRIMARY_KEY"):
+        flag, reason = check_value("pk", value)
+        if(not flag):
+            return(None, False, "Amend failure, reason: "+reason)
+        dbc.amend(primary_key, field, value)
+    elif(field == "MOVIE_NAME"):
+        flag, reason = check_value("name", value)
+        if(not flag):
+            return(None, False, "Amend failure, reason: "+reason)
+        dbc.amend(primary_key, field, value)
+    elif(field == "YEAR_OF_RELEASE"):
+        flag, reason = check_value("yor", value)
+        if(not flag):
+            return(None, False, "Amend failure, reason: "+reason)
+        dbc.amend(primary_key, field, value)
+    elif(field == "RATING"):
+        flag, reason = check_value("rating", value)
+        if(not flag):
+            return(None, False, "Amend failure, reason: "+reason)
+        dbc.amend(primary_key, field, value)
+    elif(field == "RUNTIME"):
+        flag, reason = check_value("runtime", value)
+        if(not flag):
+            return(None, False, "Amend failure, reason: "+reason)
+        dbc.amend(primary_key, field, value)
+    elif(field == "GENRE"):
+        flag, reason = check_value("genre", value)
+        if(not flag):
+            return(None, False, "Amend failure, reason: "+reason)
+        dbc.amend(primary_key, field, value)
+    
+        
+
+    
 
 def delete(pk):
     # Delete film from database
