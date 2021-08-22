@@ -10,7 +10,7 @@ def create_combo(combo_name):
 # initalise the folder with web code
 eel.init('./web')
 # start the web page with index.html at 635px x 800px
-eel.start('index.html', block=False) 
+eel.start('addfilm.html', block=False) 
 
 # keep the program running until force quitted or UI is closed
 while True:
