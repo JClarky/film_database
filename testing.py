@@ -303,7 +303,7 @@ def error_checking_test():
 
 
 while True:
-    ans = input("Test which module: database control (d), error checking (e) or both (b)")
+    ans = input("Test which module: database control (d), error checking (e), both (b) or quit (anything else) ")
     generate_values()
 
     # Test database_control module
@@ -329,4 +329,31 @@ while True:
                 dbc.delete(last_added_pk)
                 last_added_pk = None  
             print("Failure, reason was: "+reason)
+    #both
+    elif(ans == "b"):
+        print("Running database control test")
+        for g in range(1,101):
+            flag, reason = database_control_test()
+            #print(reason)
+            if(flag == False):
+                if(last_added_pk):
+                    dbc.delete(last_added_pk)
+                    last_added_pk = None
+                break     
+            #print(g)
+            if(g == 100):
+                print("Success!!!!")
+
+        print("Running error checking test")
+        flag, reason = error_checking_test()
+        if(flag):
+            print("Success!!!!")
+        else:
+            if(last_added_pk):
+                dbc.delete(last_added_pk)
+                last_added_pk = None  
+            print("Failure, reason was: "+reason)
+    else:
+        break
+
     
