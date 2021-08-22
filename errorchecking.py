@@ -122,10 +122,10 @@ def insert(pk, name, yor, rating, runtime, genre):
     
 # Amend film into database
 def amend(primary_key, field, value):
-    # Check if primary key already exists
+    # Check if primary key exists
     returned, flag, message = film(primary_key)
     if(flag == True):
-        return(None, False, "Amend failure as primary key does not exist")
+        return(None, False, "Amend failure as selected film does not exist")
 
     if(field == "PRIMARY_KEY"):
         flag, reason = check_value("pk", value)
@@ -157,11 +157,21 @@ def amend(primary_key, field, value):
         if(not flag):
             return(None, False, "Amend failure, reason: "+reason)
         dbc.amend(primary_key, field, value)
+    else:
+         return(None, False, "Field does not exist")
+
+    # Success
+    return(None, True, None)
     
         
-
-    
-
+# Delete film from database
 def delete(pk):
-    # Delete film from database
-    pass
+    # Check if primary key exists
+    returned, flag, message = film(pk)
+    if(flag == True):
+        return(None, False, "Delete failure as selected film does not exist")
+    else:
+        dbc.delete(pk)
+
+    # Success
+    return(None, True, None)
