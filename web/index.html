@@ -83,7 +83,10 @@
 
     function delete_movie(pk)
     {
-        eel.delete_movie(pk);
+        if(confirm("Are you sure you want to delete this movie?"))
+        {
+            eel.delete_movie(pk);
+        }        
     }
 
     eel.expose(response)
