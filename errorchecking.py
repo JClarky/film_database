@@ -4,8 +4,8 @@ import database_control as dbc
 # Return select film
 def film(pk):
     returned = dbc.film(pk)
-    # If the film returned is a tuple
-    if(type(returned) == type(())):
+    # If the film returned is a dict
+    if(type(returned) == type({})):
         # Success
         return(returned, True, None)
     else:
@@ -23,7 +23,7 @@ def check_value(name, value):
             return(False, "Primary key is not an integer")
         # Check if primary key already exists
         returned, flag, message = film(pk)
-        if(flag == False):
+        if(flag == True):
             return(False, "Primary key already exists")
 
         # Success

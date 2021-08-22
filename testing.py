@@ -51,7 +51,7 @@ data_inputs = {
 def generate_valid(type, max_length=50, max_value=10000, min_value=0):
     if(type == "str"):
         text = ''.join(random.choices(string.ascii_letters, k=max_length))
-        return text
+        return str(text)
     if(type == "int"):
         n = random.randint(min_value,max_value)
         return n
@@ -193,8 +193,8 @@ def error_checking_test():
     # Repeat 30 times
     for i in range(0,30):
         # Check single film
-        preselected = whole_db[random.randint(0,len(whole_db)-1)]
-        returned = ec.film(preselected["PRIMARY_KEY"]) # Request first film
+        preselected = whole_db[random.randint(0,len(whole_db))]
+        returned = ec.film(preselected["PRIMARY_KEY"])[0] # Request first film
         # Compare the returned film, and the preselected film
         if returned == "":
             return(False, "Empty film returned")
@@ -207,18 +207,22 @@ def error_checking_test():
         idx = random.randint(0,29)
         pk = len(dbc.whole_db())+1
         last_added_pk = pk
-        name = data_inputs["primary_key"]["valid"][idx]
+        name = data_inputs["movie_name"]["valid"][idx]
         yor = data_inputs["year_of_release"]["valid"][idx]
         rating = data_inputs["rating"]["valid"][idx]
         runtime = data_inputs["runtime"]["valid"][idx]
         genre = data_inputs["genre"]["valid"][idx]
         inserted_dict = {'PRIMARY_KEY': pk, 'MOVIE_NAME': str(name), 'YEAR_OF_RELEASE': yor, 'RATING': rating, 'RUNTIME': runtime, 'GENRE': genre}
 
-        ec.insert(pk,  name, yor, rating, runtime, genre)
+        returned, flag, reason = ec.insert(pk, name, yor, rating, runtime, genre)
+
+        if(not flag):
+            return(False, "Insert failure, reason: "+reason)
         inserted = ec.film(pk)
         if inserted == "":
             return(False, "Empty inserted film returned")
         elif str(inserted) != str(inserted_dict):
+            print(inserted, inserted_dict)
             return(False, "Film returned not matching inserted film")
 
         # Amend movie
@@ -312,5 +316,12 @@ while True:
                 print("Sucessfully ran 100 times")
     # Error checking module
     elif(ans == "e"):
-        error_checking_test()
+        flag, reason = error_checking_test()
+        if(flag):
+            print("Success!!!!")
+        else:
+            if(last_added_pk):
+                dbc.delete(last_added_pk)
+                last_added_pk = None  
+            print("Failure, reason was: "+reason)
     
