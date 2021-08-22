@@ -36,7 +36,7 @@ def check_value(name, value):
         if(type(name) != type("str")):
             return(False, "Film name is not of type string")
         # Check that the film name is not just whitespace/empty
-        if(not name or not name.isspace()):
+        if(not name or name.isspace()):
             return(False, "Film name is either empty or is just whitespace")
 
         # Success
@@ -62,7 +62,7 @@ def check_value(name, value):
         if(type(rating) != type("string")):
             return(False, "Rating is not of type string")
         # Check that the rating is not just whitespace/empty
-        if(not rating or not rating.isspace()):
+        if(not rating or rating.isspace()):
             return(False, "Rating is either empty or is just whitespace")
 
         # Success
@@ -88,7 +88,7 @@ def check_value(name, value):
         if(type(genre) != type("string")):
             return(False, "Genre is not of type string")
         # Check that the genre is not just whitespace/empty
-        if(not genre or not genre.isspace()):
+        if(not genre or genre.isspace()):
             return(False, "Genre is either empty or is just whitespace")
 
         # Success

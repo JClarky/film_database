@@ -218,7 +218,7 @@ def error_checking_test():
 
         if(not flag):
             return(False, "Insert failure, reason: "+reason)
-        inserted = ec.film(pk)
+        inserted, flag, reason = ec.film(pk)
         if inserted == "":
             return(False, "Empty inserted film returned")
         elif str(inserted) != str(inserted_dict):
@@ -292,7 +292,7 @@ def error_checking_test():
             # Check inseting film
             returned, flag, reason = ec.amend(created_values["primary_key"], key.upper(), created_values[key])
             if(flag):
-                return(False, "Amended film with invalid value for "+key+" reason was: "+reason)
+                return(False, "Amended film with invalid value for "+str(key)+" reason was: "+str(reason))
 
         
     return(True, "Passed all tests")
