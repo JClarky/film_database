@@ -27,12 +27,12 @@
 
             <div>
                 <label for="">Movie Name</label>
-                <input type="text" id="name" placeholder="Awesome movie">
+                <input type="text" id="name" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';" placeholder="Awesome movie">
             </div>
 
             <div>
                 <label for="">Year of release</label>
-                <input type="number" id="yor" class="small" placeholder="YYYY">
+                <input type="number" id="yor"  class="small" placeholder="YYYY">
             </div>
 
             <div>
