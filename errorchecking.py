@@ -122,6 +122,10 @@ def insert(pk, name, yor, rating, runtime, genre):
     
 # Amend film into database
 def amend(primary_key, field, value):
+    # Check if primary key is valid
+    if(type(primary_key) != type(0)):
+        return(None, False, "Primary key is not an integer")
+
     # Check if primary key exists
     returned, flag, message = film(primary_key)
     if(flag == True):
