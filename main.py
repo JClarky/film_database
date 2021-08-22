@@ -3,11 +3,23 @@ import errorchecking as ec
 import database_control as dbc
 
 
-"""
 @eel.expose
-def create_combo(combo_name):
-    menu[combo_name] = {}
-    update_men()"""
+def film(pk):
+    returned, flag, reason = ec.film(pk)
+    eel.load_page(returned, flag, reason)
+
+@eel.expose 
+def save(pk,name,yor,rating,runtime,genre):
+    pk = int(pk)
+    print(pk)
+    saved = [{'name':"MOVIE_NAME", 'value': name}, {'name':"YEAR_OF_RELEASE", 'value': yor}, {'name':"RATING", 'value': rating}, {'name':"RUNTIME", 'value': runtime}, {'name':"GENRE", 'value': genre}]
+    for i in saved:
+        returned, flag, reason  = ec.amend(pk, i["name"], i["value"])
+        if(not flag):
+            break
+
+    eel.response(flag, reason)
+
 
 @eel.expose
 def delete_movie(pk):

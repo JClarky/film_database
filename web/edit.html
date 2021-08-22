@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="./edit.css">
     <title>Jayden's Film Database</title>
 </head>
-<body>
+<body onload="get_params()">
     
     <div class="navbar">
         <h1>Jayden's Film Database</h1>
@@ -16,7 +16,7 @@
     <div class="container">
         <h2>Edit film</h2>
         <a href="index.html" id="cancel">Cancel</a>
-        <a href="" id="save">Save</a>
+        <a onclick="save()" id="save">Save</a>
 
         <div class="entry">
             <div>
@@ -27,26 +27,26 @@
 
             <div>
                 <label for="">Movie Name</label>
-                <input type="text" placeholder="Awesome movie">
+                <input type="text" id="name" placeholder="Awesome movie">
             </div>
 
             <div>
                 <label for="">Year of release</label>
-                <input type="text" class="small" placeholder="YYYY">
+                <input type="text" id="yor" class="small" placeholder="YYYY">
             </div>
 
             <div>
                 <label for="">Rating</label>
-                <input type="text" class="small" placeholder="R16">
+                <input type="text" id="rating" class="small" placeholder="R16">
             </div>
             <div>
                 <label for="">Runtime</label>
-                <input type="text" class="small" placeholder="Number">
+                <input type="text" id="runtime" class="small" placeholder="Number">
             </div>
 
             <div>
                 <label for="">Genre</label>
-                <input type="text" class="small" placeholder="Action">
+                <input type="text" id="genre" class="small" placeholder="Action">
             </div>
             
         </div>
@@ -55,3 +55,59 @@
 </body>
 </html>
 <script type="text/javascript" src="/eel.js"></script>
+
+<script>
+    function get_params()
+    {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        var pk = urlParams.get('pk');
+        eel.film(pk);
+    }
+
+    function save()
+    {
+        var pk = document.getElementById("pk").value;
+        var name = document.getElementById("name").value;
+        var yor = document.getElementById("yor").value;
+        var rating = document.getElementById("rating").value;
+        var runtime = document.getElementById("runtime").value;
+        var genre = document.getElementById("genre").value;
+        eel.save(pk, name, yor, rating, runtime, genre);   
+    }
+
+    eel.expose(response)
+    function response(flag, reason)
+    {
+        if(flag)
+        {
+            alert("Success!");
+        }
+        else
+        {
+            alert(reason);
+            window.location.reload();
+        }
+    }
+    
+    eel.expose(load_page)
+    function load_page(returned, flag, reason)
+    {
+        if(flag)
+        {
+            console.log(returned);
+
+            document.getElementById("pk").value = returned["PRIMARY_KEY"];
+            document.getElementById("name").value = returned["MOVIE_NAME"];
+            document.getElementById("yor").value = returned["YEAR_OF_RELEASE"];
+            document.getElementById("rating").value = returned["RATING"];
+            document.getElementById("runtime").value = returned["RUNTIME"];
+            document.getElementById("genre").value = returned["GENRE"];
+        }
+        else
+        {
+            alert("Page load failure! Movie does not exist!");
+            window.location.href = "index.html";
+        }
+    }
+</script>

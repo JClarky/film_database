@@ -145,7 +145,7 @@ def amend(primary_key, field, value):
 
     # Check if primary key exists
     returned, flag, message = film(primary_key)
-    if(flag == True):
+    if(flag == False):
         return(None, False, "Amend failure as selected film does not exist")
 
     if(field == "PRIMARY_KEY"):
