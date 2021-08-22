@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="./addfilm.css">
     <title>Jayden's Film Database</title>
 </head>
-<body>
+<body onload="eel.next_pk()">
     
     <div class="navbar">
         <h1>Jayden's Film Database</h1>
@@ -15,38 +15,38 @@
 
     <div class="container">
         <h2>Add film</h2>
-        <a href="" id="cancel">Cancel</a>
-        <a href="" id="save">Save</a>
+        <a href="index.html" id="cancel">Cancel</a>
+        <a onclick="add_film()" id="save">Add</a>
 
         <div class="entry">
             <div>
                 <label for="">Primary Key</label>
-                <input type="text" id="pk" placeholder="" readonly>
+                <input type="number" id="pk" placeholder="" readonly>
             </div>
             
 
             <div>
                 <label for="">Movie Name</label>
-                <input type="text" placeholder="Awesome movie">
+                <input type="text" id="name" placeholder="Awesome movie">
             </div>
 
             <div>
                 <label for="">Year of release</label>
-                <input type="text" class="small" placeholder="YYYY">
+                <input type="number" id="yor" class="small" placeholder="YYYY">
             </div>
 
             <div>
                 <label for="">Rating</label>
-                <input type="text" class="small" placeholder="R16">
+                <input type="text" id="rating" class="small" placeholder="R16">
             </div>
             <div>
                 <label for="">Runtime</label>
-                <input type="text" class="small" placeholder="Number">
+                <input type="number" id="runtime" class="small" placeholder="Number">
             </div>
 
             <div>
                 <label for="">Genre</label>
-                <input type="text" class="small" placeholder="Action">
+                <input type="text" id="genre" class="small" placeholder="Action">
             </div>
             
         </div>
@@ -54,3 +54,37 @@
 
 </body>
 </html>
+<script type="text/javascript" src="/eel.js"></script>
+
+<script>
+    eel.expose(next_pk);
+    function next_pk(pk)
+    {
+        document.getElementById("pk").value = pk;
+    }
+
+    function add_film()
+    {
+        var pk = document.getElementById("pk").value;
+        var name = document.getElementById("name").value;
+        var yor = document.getElementById("yor").value;
+        var rating = document.getElementById("rating").value;
+        var runtime = document.getElementById("runtime").value;
+        var genre = document.getElementById("genre").value;
+        eel.add_film(pk, name, yor, rating, runtime, genre);
+        
+    }
+    eel.expose(response)
+    function response(flag, reason)
+    {
+        if(flag)
+        {
+            alert("Success!");
+            window.location.href = "index.html";
+        }
+        else
+        {
+            alert(reason);
+        }
+    }
+</script>

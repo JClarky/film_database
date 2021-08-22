@@ -92,8 +92,10 @@ table {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 15px;
+    overflow-x:auto;
+    max-width: 230px;
   }
   
-  tr:nth-child(even) {
+  tbody:nth-child(even) {
     background-color: #dddddd;
   }

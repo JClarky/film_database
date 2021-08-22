@@ -18,6 +18,10 @@ def check_value(name, value):
     # Primary key
     if(name == "pk"):
         pk = value
+        try:
+            pk = int(pk)
+        except:
+            return(False, "Primary key is not an integer")
         # Check if primary key is integer
         if(type(pk) != type(0)):
             return(False, "Primary key is not an integer")
@@ -48,6 +52,10 @@ def check_value(name, value):
     # Year of release
     if(name == "yor"):
         yor = value  
+        try:
+            yor = int(yor)
+        except:
+            return(False, "Year of release is not an integer")
         # Check if year of release is integer
         if(type(yor) != type(1)):
             return(False, "Year of release is not of type integer")
@@ -74,6 +82,10 @@ def check_value(name, value):
     # Runtime
     if(name == "runtime"):
         runtime = value  
+        try:
+            runtime = int(runtime)
+        except:
+            return(False, "Runtime is not a positive integer")
         # Check if runtime is an integer
         if(type(runtime) != type(1)):
             return(False, "Runtime is not of type integer")
@@ -117,6 +129,9 @@ def insert(pk, name, yor, rating, runtime, genre):
         if(not flag):
             return(None, False, "Insert film falure, reason: "+reason)
 
+    pk = int(pk)
+    yor = int(yor)
+    runtime = int(runtime)
     dbc.insert((pk, name, yor, rating, runtime, genre))
 
     # Success

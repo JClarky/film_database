@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="./index.css">
     <title>Jayden's Film Database</title>
 </head>
-<body>
+<body onload="eel.update_db()">
     
     <div class="navbar">
         <h1>Jayden's Film Database</h1>
@@ -15,10 +15,10 @@
 
     <div class="database-container">
         <h2>Database</h2>
-        <a href="" id="add_film">ADD FILM</a>
+        <a href="addfilm.html" id="add_film">ADD FILM</a>
 
         <div class="database">
-            <table>
+            <table id="table">
                 <tr>
                     <th>PRIMARY KEY</th>
                     <th>MOVIE NAME</th>
@@ -47,3 +47,32 @@
 
 </body>
 </html>
+
+<script type="text/javascript" src="/eel.js"></script>
+<script>
+    eel.expose(update_films);
+    function update_films(database)
+    {        
+        console.log("wow my g");
+        console.log(database[0]["GENRE"]);
+
+        db_element = document.getElementById("table");
+        db_element.innerHTML = "<tr><th>PRIMARY KEY</th><th>MOVIE NAME</th><th>YEAR OF RELEASE</th><th>RATING</th><th>RUNTIME</th><th>GENRE</th><th></th></tr>";        
+
+        // loops through the movies in the menu
+        for (i = 0; i < Object.keys(database).length; i++)
+        {
+            var movie = database[i];
+            console.log(movie);
+            
+            var tr = document.createElement('tr');
+            tr.innerHTML = "<td>"+movie["PRIMARY_KEY"]+"</td><td>"+movie["MOVIE_NAME"]+"</td><td>"+movie["YEAR_OF_RELEASE"]+"</td><td>"+movie["RATING"]+"</td><td>"+movie["RUNTIME"]+"</td><td>"+movie["GENRE"]+"</td><td><a href='' class='edit'>EDIT</a><a href='' class='delete'>DELETE</a></td>";
+            console.log(tr);
+
+            db_element.innerHTML = db_element.innerHTML + tr.innerHTML;
+            console.log(db_element.innerHTML);
+        }              
+
+    }
+
+</script>
