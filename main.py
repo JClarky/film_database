@@ -11,7 +11,6 @@ def film(pk):
 @eel.expose 
 def save(pk,name,yor,rating,runtime,genre):
     pk = int(pk)
-    print(pk)
     saved = [{'name':"MOVIE_NAME", 'value': name}, {'name':"YEAR_OF_RELEASE", 'value': yor}, {'name':"RATING", 'value': rating}, {'name':"RUNTIME", 'value': runtime}, {'name':"GENRE", 'value': genre}]
     for i in saved:
         returned, flag, reason  = ec.amend(pk, i["name"], i["value"])

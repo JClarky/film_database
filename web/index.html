@@ -45,16 +45,25 @@
         </div>
     </div>
 
+    <div class="data-banner" id="banner">
+        
+        <p>This software collects no personal data, and uses no cookies. The only data stored and used, is the data entered by yourself. All data is stored locally inside the file film_database.db. Deleting this file will destory all stored data. By click "OK" you agree that you understand how data is used.</p>
+        <button onclick="close_banner()">OK</button>
+    </div>
+
 </body>
 </html>
 
 <script type="text/javascript" src="/eel.js"></script>
 <script>
+    function close_banner()
+    {
+        document.getElementById("banner").style.display = "none";
+    }
+
     eel.expose(update_films);
     function update_films(database)
-    {        
-        console.log("wow my g");
-        console.log(database[0]["GENRE"]);
+    {       
 
         db_element = document.getElementById("table");
         db_element.innerHTML = "<tr><th>PRIMARY KEY</th><th>MOVIE NAME</th><th>YEAR OF RELEASE</th><th>RATING</th><th>RUNTIME</th><th>GENRE</th><th></th></tr>";        
@@ -63,14 +72,11 @@
         for (i = 0; i < Object.keys(database).length; i++)
         {
             var movie = database[i];
-            console.log(movie);
             
             var tr = document.createElement('tr');
             tr.innerHTML = "<td>"+movie["PRIMARY_KEY"]+"</td><td>"+movie["MOVIE_NAME"]+"</td><td>"+movie["YEAR_OF_RELEASE"]+"</td><td>"+movie["RATING"]+"</td><td>"+movie["RUNTIME"]+"</td><td>"+movie["GENRE"]+"</td><td><a href='edit.html?pk="+movie["PRIMARY_KEY"]+"' class='edit'>EDIT</a><a onclick='delete_movie("+movie["PRIMARY_KEY"]+")' class='delete'>DELETE</a></td>";
-            console.log(tr);
 
             db_element.innerHTML = db_element.innerHTML + tr.innerHTML;
-            console.log(db_element.innerHTML);
         }              
 
     }
