@@ -193,8 +193,10 @@ def error_checking_test():
     # Repeat 30 times
     for i in range(0,30):
         # Check single film
-        preselected = whole_db[random.randint(0,len(whole_db))]
-        returned = ec.film(preselected["PRIMARY_KEY"])[0] # Request first film
+        #print(whole_db)
+        t = random.randint(0,len(whole_db)-1)
+        preselected = whole_db[t]        
+        returned = ec.film(preselected["PRIMARY_KEY"])[0] # Request film
         # Compare the returned film, and the preselected film
         if returned == "":
             return(False, "Empty film returned")
@@ -224,6 +226,8 @@ def error_checking_test():
         elif str(inserted) != str(inserted_dict):
             print(inserted, inserted_dict)
             return(False, "Film returned not matching inserted film")
+
+        dbc.delete(pk)
 
         # Amend movie
         # Ensure the new value is actually different then the last value
@@ -296,6 +300,7 @@ def error_checking_test():
 
         
     return(True, "Passed all tests")
+
 
 while True:
     ans = input("Test which module: database control (d), error checking (e) or both (b)")

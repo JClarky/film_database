@@ -85,7 +85,7 @@ def check_value(name, value):
         return(True, None)
 
     # Genre
-    if(name == "Genre"):
+    if(name == "genre"):
         genre = value 
         # Check if genre is a string
         if(type(genre) != type("string")):
@@ -93,14 +93,13 @@ def check_value(name, value):
         # Check that the genre is not just whitespace/empty
         if(not genre or genre.isspace()):
             return(False, "Genre is either empty or is just whitespace")
-
         # Success
         return(True, None)
                 
         
 # Insert film into database 
 def insert(pk, name, yor, rating, runtime, genre):
-    for i in range(0, 5):
+    for i in range(0, 6):        
         if(i == 0):
             flag, reason = check_value("pk", pk)
         elif(i == 1):
@@ -175,7 +174,7 @@ def amend(primary_key, field, value):
 def delete(pk):
     # Check if primary key exists
     returned, flag, message = film(pk)
-    if(flag == True):
+    if(flag == False):
         return(None, False, "Delete failure as selected film does not exist")
     else:
         dbc.delete(pk)
