@@ -287,7 +287,7 @@ def error_checking_test():
             # Check add film
             returned, flag, reason = ec.insert(created_values["primary_key"], created_values["movie_name"], created_values["year_of_release"], created_values["rating"], created_values["runtime"], created_values["genre"])
             if(flag):
-                return(False, "Inserted film to database with invalid value for "+key+" reason was: "+reason)
+                return(False, "Inserted film to database with invalid value for "+str(key)+" reason was: "+str(reason))
 
             # Check inseting film
             returned, flag, reason = ec.amend(created_values["primary_key"], key.upper(), created_values[key])

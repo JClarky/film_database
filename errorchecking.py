@@ -21,6 +21,9 @@ def check_value(name, value):
         # Check if primary key is integer
         if(type(pk) != type(0)):
             return(False, "Primary key is not an integer")
+        # Check if primary key is positive
+        if(pk < 0):
+            return(False, "Primary key is not above 0")
         # Check if primary key already exists
         returned, flag, message = film(pk)
         if(flag == True):
