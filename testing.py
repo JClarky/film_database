@@ -107,7 +107,6 @@ def generate_values():
 
 def database_control_test():
     global last_added_pk
-    #try:
     # Check entire database
 
     returned = dbc.whole_db()
@@ -175,9 +174,6 @@ def database_control_test():
     dbc.delete(pk)
     if(type(dbc.film(pk)) == type({})):
         return(False, "Film has not been succesfully deleted")
-
-    #except Exception as e:       
-    #    return(False, "Database control module error, "+str(e))
 
     return(True, "Passed all tests")
 

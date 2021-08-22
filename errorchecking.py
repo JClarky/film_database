@@ -95,14 +95,30 @@ def check_value(name, value):
         return(True, None)
                 
         
-        
-
-
+# Insert film into database 
 def insert(pk, name, yor, rating, runtime, genre):
-    # Insert film into database 
-    if(check_value("pk", pk) and check_value("name", name) and check_value("yor", yor) and check_value("rating", rating) and check_value("runtime", runtime) and check_value("genre", genre)):
-        print("sucess")
+    for i in range(0, 5):
+        if(i == 0):
+            flag, reason = check_value("pk", pk)
+        elif(i == 1):
+            flag, reason = check_value("name", name)
+        elif(i == 2):
+            flag, reason = check_value("yor", yor)
+        elif(i == 3):
+            flag, reason = check_value("rating", rating)
+        elif(i == 4):
+            flag, reason = check_value("runtime", runtime)
+        elif(i == 5):
+            flag, reason = check_value("genre", genre)
 
+        # Failure
+        if(not flag):
+            return(None, False, "Insert film falure, reason: "+reason)
+
+    insert((pk, name, yor, rating, runtime, genre))
+    # Success
+    return(None, True, None)
+    
 
 def amend():
     # Amend film into database
