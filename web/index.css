@@ -56,10 +56,22 @@ h1
     padding: 10px 20px;
 }
 
+button, a
+{
+    transition: all .3s ease;
+    border: 1px solid;
+    border-color: transparent;
+}
+
+button:hover, a:hover {
+    color: black !important;
+    background-color: #fff !important;
+    border-color: black;
+}
+
 .edit
 {
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    border: 1px solid #9E9E9E;
+    background: #ffe30d 0% 0% no-repeat padding-box;
     border-radius: 5px;
     text-decoration: none;
     color: black;
@@ -119,3 +131,4 @@ tbody:nth-child(even)
 {
    margin-left: 20px;
 }
+

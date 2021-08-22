@@ -56,6 +56,27 @@ h1
     padding: 9px 10px;
 }
 
+button, a
+{
+    transition: all .3s ease;
+    border: 1px solid;
+    border-color: transparent;
+}
+
+
+button:hover, a:hover {
+    color: black !important;
+    background-color: #fff !important;
+    border-color: black;
+}
+
+
+#cancel:hover 
+{
+    background-color:#C40A0A !important;
+    color: white !important;
+}
+
 #save
 {
     position: absolute;
