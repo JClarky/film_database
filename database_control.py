@@ -65,6 +65,14 @@ def create_table():
 
 #create_table()
 
+cursor.execute(''' SELECT count(name) FROM sqlite_master WHERE type='table' AND name='FILMS' ''')
+
+#if the count is 1, then table exists
+if cursor.fetchone()[0]!=1: 
+    create_table()
+    conn.commit()
+    insert((1,'Ghostbusters',2016,'PG',116,'Comedy'))
+
 # Commit table
 #conn.commit()
 
