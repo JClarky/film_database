@@ -1,1 +1,2 @@
 # Film Database
+Build with pyinstaller --noconfirm --onefile --windowed --icon "C:/Users/jayde/OneDrive/Documents/School Stuff/COS/2021 Final Assesment/J-favicon.ico" --name "Jaydens Film Database" --add-data "C:/Users/jayde/OneDrive/Documents/School Stuff/COS/2021 Final Assesment/web;web/" --exclude-module "" --add-data "C:/Users/jayde/OneDrive/Documents/School Stuff/COS/2021 Final Assesment/film_database.db;."  "C:/Users/jayde/OneDrive/Documents/School Stuff/COS/2021 Final Assesment/main.py"
