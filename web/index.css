@@ -116,6 +116,11 @@ tbody:nth-child(even)
     background-color: #dddddd;
 }
 
+li
+{
+    list-style: none;
+}
+
 
 .data-banner
 {    
