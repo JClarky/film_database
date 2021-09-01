@@ -23,14 +23,14 @@
         <li>
             <div class="order">
                 <label for="">Order</label>
-                <select oninput="order()" id="order" name="order">
+                <select oninput="order()" onload="order()" id="order" name="order">
                     <option value="ASC">Acending</option>
                     <option value="DESC">Decending</option>
                 </select>
             </div>
             <div class="sort">
                 <label for="">Sort by</label>
-                <select oninput="sort()" id="sort" name="sort">
+                <select oninput="sort()" onload="sort()" id="sort" name="sort">
                     <option value="PRIMARY_KEY">Primary Key</option>
                     <option value="MOVIE_NAME">Name</option>
                     <option value="YEAR_OF_RELEASE">Year of Release</option>
