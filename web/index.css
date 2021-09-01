@@ -160,6 +160,31 @@ li
     top: 22px;
 }
 
+.sort 
+{
+    position: absolute;
+    right: 710px;
+    top: 22px;
+}
+
+
+.order 
+{
+    position: absolute;
+    right: 510px;
+    top: 22px;
+}
+
+select
+{
+    
+    font-size: 15px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 2px solid #E1E1E1;
+    border-radius: 5px;
+    height: 25px;
+}
+
 input
 {
     all: unset;
@@ -174,8 +199,7 @@ input
 label
 {
     display: inline-block;
-    width: 140px;
     text-align: right;
-    margin-right: 20px;
+    margin-right: 10px;
     font-size: 18px;
 }

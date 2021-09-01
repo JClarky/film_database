@@ -21,6 +21,24 @@
         <h2>Database</h2>
         
         <li>
+            <div class="order">
+                <label for="">Order</label>
+                <select oninput="order()" id="order" name="order">
+                    <option value="ASC">Acending</option>
+                    <option value="DESC">Decending</option>
+                </select>
+            </div>
+            <div class="sort">
+                <label for="">Sort by</label>
+                <select oninput="sort()" id="sort" name="sort">
+                    <option value="PRIMARY_KEY">Primary Key</option>
+                    <option value="MOVIE_NAME">Name</option>
+                    <option value="YEAR_OF_RELEASE">Year of Release</option>
+                    <option value="RATING">Rating</option>
+                    <option value="RUNTIME">Runtime</option>
+                    <option value="GENRE">Genre</option>
+                </select>
+            </div>
             <div class="search">
                 <label for="">Search</label>
                 <input type="text" id="search" oninput="search()" class="small" placeholder="Enter query">
@@ -79,6 +97,20 @@
         {
             eel.search(query);
         }
+    }
+
+    function sort()
+    {
+        var sort_value = document.getElementById("sort").value;
+        eel.sort(sort_value);
+        eel.update_db();
+    }
+
+    function order()
+    {
+        var order_value = document.getElementById("order").value;
+        eel.order(order_value);
+        eel.update_db();
     }
 
     function close_banner()

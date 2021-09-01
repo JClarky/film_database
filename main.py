@@ -2,6 +2,8 @@ import eel
 import errorchecking as ec 
 import database_control as dbc
 
+sort_by = "PRIMARY_KEY"
+orderr = "ASC"
 
 @eel.expose
 def film(pk):
@@ -18,6 +20,18 @@ def save(pk,name,yor,rating,runtime,genre):
             break
 
     eel.response(flag, reason)
+
+@eel.expose 
+def order(od):
+    global orderr
+    orderr = od
+    dbc.sort_string = " ORDER BY "+sort_by+" "+orderr
+
+@eel.expose 
+def sort(st):
+    global sort_by
+    sort_by = st
+    dbc.sort_string = " ORDER BY "+sort_by+" "+orderr
 
 @eel.expose
 def search(query):

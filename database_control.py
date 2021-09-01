@@ -4,6 +4,9 @@ import sqlite3
 conn = sqlite3.connect("film_database.db")
 cursor = conn.cursor()
 
+# String to append to any searches/retrievals
+sort_string = ""
+
 def dict_factory(cursor, row):
     d = {}
     for idx, col in enumerate(cursor.description):
@@ -16,7 +19,7 @@ def whole_db():
     cursor.row_factory = dict_factory
     db = {}
     i = 0
-    for row in cursor.execute('SELECT * FROM FILMS'):
+    for row in cursor.execute('SELECT * FROM FILMS'+sort_string):
         db[i] = row
         i = i + 1
 
@@ -27,7 +30,7 @@ def search(query):
     cursor.row_factory = dict_factory
     db = {}
     i = 0
-    for row in cursor.execute("SELECT * FROM FILMS WHERE FILMS MATCH '"+str(query)+"'"):
+    for row in cursor.execute("SELECT * FROM FILMS WHERE FILMS MATCH '"+str(query)+"'"+sort_string):
         db[i] = row
         i = i + 1
 
@@ -65,14 +68,6 @@ def delete(primary_key):
     conn.commit()
 
 # Create table (only used once)
-"""def create_table():
-    conn.execute('''CREATE TABLE FILMS
-    (PRIMARY_KEY INTEGER,
-    MOVIE_NAME TEXT,
-    YEAR_OF_RELEASE INTEGER,
-    RATING TEXT,
-    RUNTIME INTEGER,
-    GENRE TEXT);''')"""
 def create_table():
     conn.execute('''CREATE VIRTUAL TABLE FILMS USING FTS5
     (PRIMARY_KEY,
