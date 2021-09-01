@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./index.css">
     <link rel="icon" href="J-favicon.ico" type="image/x-icon">
-    <title>Jayden's Film Databaseeee</title>
+    <title>Jayden's Film Database</title>
 </head>
 <body onload="eel.update_db()">
     
@@ -19,7 +19,14 @@
 
     <div class="database-container">
         <h2>Database</h2>
-        <li><a href="addfilm.html" id="add_film">ADD FILM</a></li>
+        
+        <li>
+            <div class="search">
+                <label for="">Search</label>
+                <input type="text" id="search" oninput="search()" class="small" placeholder="Enter query">
+            </div>
+            <a href="addfilm.html" id="add_film">ADD FILM</a>
+        </li>
 
         <div class="database">
             <table id="table">
@@ -58,8 +65,22 @@
 </body>
 </html>
 
-<script type="module" src="/eel.js"></script>
+<script type="text/javascript" src="/eel.js"></script>
 <script>
+    function search()
+    {
+        var query = document.getElementById("search").value;
+        
+        if(query == "")
+        {
+            eel.update_db();
+        }
+        else 
+        {
+            eel.search(query);
+        }
+    }
+
     function close_banner()
     {
         document.getElementById("banner").style.display = "none";
@@ -68,9 +89,17 @@
     eel.expose(update_films);
     function update_films(database)
     {       
-
+        console.log(database)
         db_element = document.getElementById("table");
         db_element.innerHTML = "<tr><th>PRIMARY KEY</th><th>MOVIE NAME</th><th>YEAR OF RELEASE</th><th>RATING</th><th>RUNTIME</th><th>GENRE</th><th></th></tr>";        
+
+        if(Object.keys(database).length == 0)
+        {           
+            var tr = document.createElement('tr');
+            tr.innerHTML = "<td>-</td><td>No results</td><td>-</td><td>-</td><td>-</td><td>-</td><td><a href='' class='edit'>EDIT</a><a class='delete'>DELETE</a></td>";
+
+            db_element.innerHTML = db_element.innerHTML + tr.innerHTML;
+        }
 
         // loops through the movies in the menu
         for (i = 0; i < Object.keys(database).length; i++)

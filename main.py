@@ -19,13 +19,15 @@ def save(pk,name,yor,rating,runtime,genre):
 
     eel.response(flag, reason)
 
+@eel.expose
+def search(query):
+    results = dbc.search(query)
+    eel.update_films(results)
 
 @eel.expose
 def delete_movie(pk):
     pk = int(pk)
-
     returned, flag, reason = ec.delete(pk)
-
     eel.response(flag, reason)
 
 @eel.expose

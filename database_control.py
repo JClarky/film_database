@@ -22,6 +22,17 @@ def whole_db():
 
     return(db)
 
+# Search the database
+def search(query):
+    cursor.row_factory = dict_factory
+    db = {}
+    i = 0
+    for row in cursor.execute("SELECT * FROM FILMS WHERE FILMS MATCH '"+str(query)+"'"):
+        db[i] = row
+        i = i + 1
+
+    return(db)
+
 # Return specific film
 def film(primary_key):
     global cursor
@@ -54,14 +65,22 @@ def delete(primary_key):
     conn.commit()
 
 # Create table (only used once)
-def create_table():
+"""def create_table():
     conn.execute('''CREATE TABLE FILMS
     (PRIMARY_KEY INTEGER,
     MOVIE_NAME TEXT,
     YEAR_OF_RELEASE INTEGER,
     RATING TEXT,
     RUNTIME INTEGER,
-    GENRE TEXT);''')
+    GENRE TEXT);''')"""
+def create_table():
+    conn.execute('''CREATE VIRTUAL TABLE FILMS USING FTS5
+    (PRIMARY_KEY,
+    MOVIE_NAME,
+    YEAR_OF_RELEASE,
+    RATING,
+    RUNTIME,
+    GENRE);''')
 
 #create_table()
 
